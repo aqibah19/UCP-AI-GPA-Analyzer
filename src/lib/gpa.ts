@@ -40,18 +40,27 @@ export interface GpaResult {
   categories: CategoryResult[];
 }
 
-export const GRADE_SCALE: { grade: string; min: number; max: number; point: number }[] = [
-  { grade: "A", min: 85, max: 100, point: 4.0 },
-  { grade: "A-", min: 80, max: 84.99, point: 3.7 },
-  { grade: "B+", min: 75, max: 79.99, point: 3.3 },
-  { grade: "B", min: 71, max: 74.99, point: 3.0 },
-  { grade: "B-", min: 68, max: 70.99, point: 2.7 },
-  { grade: "C+", min: 64, max: 67.99, point: 2.3 },
-  { grade: "C", min: 61, max: 63.99, point: 2.0 },
-  { grade: "C-", min: 58, max: 60.99, point: 1.7 },
-  { grade: "D+", min: 54, max: 57.99, point: 1.3 },
-  { grade: "D", min: 50, max: 53.99, point: 1.0 },
-  { grade: "F", min: 0, max: 49.99, point: 0.0 },
+export const GRADE_SCALE: { grade: string; min: number; max: number; point: number; rangeLabel: string }[] = [
+  { grade: "A", min: 86, max: 100, point: 4.0, rangeLabel: "86 - 100%" },
+  { grade: "A-", min: 82, max: 85.99, point: 3.67, rangeLabel: "82 - 85%" },
+  { grade: "B+", min: 78, max: 81.99, point: 3.33, rangeLabel: "78 - 81%" },
+  { grade: "B", min: 74, max: 77.99, point: 3.0, rangeLabel: "74 - 77%" },
+  { grade: "B-", min: 70, max: 73.99, point: 2.67, rangeLabel: "70 - 73%" },
+  { grade: "C+", min: 66, max: 69.99, point: 2.33, rangeLabel: "66 - 69%" },
+  { grade: "C", min: 62, max: 65.99, point: 2.0, rangeLabel: "62 - 65%" },
+  { grade: "C-", min: 58, max: 61.99, point: 1.67, rangeLabel: "58 - 61%" },
+  { grade: "D+", min: 54, max: 57.99, point: 1.33, rangeLabel: "54 - 57%" },
+  { grade: "D", min: 50, max: 53.99, point: 1.0, rangeLabel: "50 - 53%" },
+  { grade: "F", min: 0, max: 49.99, point: 0.0, rangeLabel: "Below 50%" },
+];
+
+export const SPECIAL_GRADES: { grade: string; points: string; remark: string }[] = [
+  { grade: "W", points: "---", remark: "Withdrawal" },
+  { grade: "I", points: "---", remark: "Incomplete" },
+  { grade: "N", points: "---", remark: "Continued" },
+  { grade: "S", points: "---", remark: "Satisfactory" },
+  { grade: "US", points: "---", remark: "Unsatisfactory" },
+  { grade: "P/F", points: "Pass/Fail", remark: "---" },
 ];
 
 export function gradeFor(percentage: number): { grade: string; min: number; max: number; point: number } {

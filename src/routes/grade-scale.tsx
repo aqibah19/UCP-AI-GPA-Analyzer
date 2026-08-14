@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 
-import { GRADE_SCALE } from "@/lib/gpa";
+import { GRADE_SCALE, SPECIAL_GRADES } from "@/lib/gpa";
 
 export const Route = createFileRoute("/grade-scale")({
   head: () => ({
@@ -8,10 +8,10 @@ export const Route = createFileRoute("/grade-scale")({
       { title: "UCP Grade Scale & Grade Points — GPA Analyzer" },
       {
         name: "description",
-        content: "Percentage ranges, letter grades and grade points on the 4.0 scale used to estimate UCP course GPA.",
+        content: "Official UCP percentage ranges, letter grades and grade points on the 4.0 scale.",
       },
       { property: "og:title", content: "UCP Grade Scale & Grade Points" },
-      { property: "og:description", content: "Letter grades, percentage ranges and grade points on the 4.0 scale." },
+      { property: "og:description", content: "Official UCP letter grades, percentage ranges and grade points on the 4.0 scale." },
     ],
   }),
   component: GradeScalePage,
@@ -20,29 +20,52 @@ export const Route = createFileRoute("/grade-scale")({
 function GradeScalePage() {
   return (
     <div className="mx-auto max-w-4xl px-4 py-14 sm:px-6">
-      <h1 className="text-3xl font-bold sm:text-4xl">Grade Scale</h1>
+      <h1 className="text-3xl font-bold sm:text-4xl">UCP Grade Scale</h1>
       <p className="mt-4 text-muted-foreground">
-        The analyzer converts your weighted percentage into a letter grade and grade point using the 4.0 scale below.
-        Some departments apply relative grading, so treat these values as an estimate.
+        The official grading policy and 4.0 grade point scale used by the University of Central Punjab.
       </p>
 
-      <div className="surface-card mt-10 overflow-hidden">
+      {/* Main Grade Scale Table */}
+      <div className="surface-card mt-8 overflow-hidden">
         <table className="w-full text-sm">
           <thead className="bg-secondary text-left">
             <tr>
-              <th className="px-5 py-3 font-semibold">Percentage</th>
-              <th className="px-5 py-3 font-semibold">Grade</th>
-              <th className="px-5 py-3 font-semibold">Grade Point</th>
+              <th className="px-5 py-3 font-semibold">Letter Grade</th>
+              <th className="px-5 py-3 font-semibold">Grade Points</th>
+              <th className="px-5 py-3 font-semibold">Marks (%)</th>
             </tr>
           </thead>
           <tbody>
             {GRADE_SCALE.map((g) => (
               <tr key={g.grade} className="border-t border-border">
-                <td className="px-5 py-3">
-                  {g.grade === "F" ? "Below 50" : `${g.min} – ${Math.round(g.max)}`}
+                <td className="px-5 py-3 font-bold text-foreground">{g.grade}</td>
+                <td className="px-5 py-3 font-medium text-foreground">
+                  {g.point.toFixed(2)}
                 </td>
-                <td className="px-5 py-3 font-semibold">{g.grade}</td>
-                <td className="px-5 py-3">{g.point.toFixed(1)}</td>
+                <td className="px-5 py-3 text-muted-foreground">{g.rangeLabel}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      {/* Special Non-GPA Grades Table */}
+      <h2 className="mt-12 text-xl font-bold">Special Grades</h2>
+      <div className="surface-card mt-4 overflow-hidden">
+        <table className="w-full text-sm">
+          <thead className="bg-secondary text-left">
+            <tr>
+              <th className="px-5 py-3 font-semibold">Letter Grade</th>
+              <th className="px-5 py-3 font-semibold">Grade Points</th>
+              <th className="px-5 py-3 font-semibold">Remarks / Meaning</th>
+            </tr>
+          </thead>
+          <tbody>
+            {SPECIAL_GRADES.map((s) => (
+              <tr key={s.grade} className="border-t border-border">
+                <td className="px-5 py-3 font-bold text-foreground">{s.grade}</td>
+                <td className="px-5 py-3 text-muted-foreground">{s.points}</td>
+                <td className="px-5 py-3 text-muted-foreground">{s.remark}</td>
               </tr>
             ))}
           </tbody>
