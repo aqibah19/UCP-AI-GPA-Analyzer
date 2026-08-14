@@ -1,5 +1,4 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useServerFn } from "@tanstack/react-start";
 import { AlertCircle, History as HistoryIcon, Loader2, Sparkles, Trash2 } from "lucide-react";
 import { Suspense, lazy, useEffect, useState } from "react";
 import { toast } from "sonner";
@@ -37,7 +36,7 @@ export const Route = createFileRoute("/analyze")({
 type Stage = "upload" | "review" | "result";
 
 function AnalyzePage() {
-  const analyze = useServerFn(analyzeScreenshots);
+  const analyze = analyzeScreenshots;
   const [marks, setMarks] = useState<string | null>(null);
   const [evaluation, setEvaluation] = useState<string | null>(null);
   const [stage, setStage] = useState<Stage>("upload");
